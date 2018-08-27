@@ -8,13 +8,19 @@ const now = moment(new Date());
 
 const style = html`
 <style>
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
   .container {
     display: flex;
-    background: red;
     flex-wrap: wrap;
   }
   .cell {
-    flex: 0 0 calc(100%/7) 
+    flex: 0 0 calc(100%/7);
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
 `;
@@ -46,7 +52,7 @@ class DatePicker extends HTMLElement {
     const template = html`
       ${style}
         <div class="container">
-        ${weekdays.map(d => html`<div class="cell">${d}</div>`)}
+        ${weekdays.map(d => html`<div class="cell"><span>${d}</span></div>`)}
         ${this.createDateCells(firstDateOfCalMonth, lastDateOfCalMonth)}
       </div>
     `;
@@ -65,7 +71,7 @@ class DatePicker extends HTMLElement {
 
   createDateCell(date) {
     if (this.isInCurrentMonth(this.currentMonth, date)) {
-      return html`<div class="cell">${date.date()}</div>`;
+      return html`<div class="cell"><span>${date.date()}</span></div>`;
     } else {
       return html`<div class="cell"></div>`;
     }
